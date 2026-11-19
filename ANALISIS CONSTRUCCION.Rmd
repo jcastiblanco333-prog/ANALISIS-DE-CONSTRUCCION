@@ -1,0 +1,45 @@
+---
+title: "ANALISIS DATOS DE CONSTRUCCION"
+author: "JONATHAN CASTIBLANCO"
+date: "2026-11-19"
+output: html_document
+
+---
+
+```{r}
+datos <- read.csv2("DATO_ANONIM_construccion.csv")
+datos$PRECIOVTAX_num <- as.numeric(datos$PRECIOVTAX)
+```
+
+
+## R Markdown
+
+title: "ANALISIS DATOS DE CONSTRUCCION"
+author: "JONATHAN CASTIBLANCO"
+date: "2026-11-19"
+output: html_document
+---
+
+## 1. Introduccion
+
+El sector de la construccion es clave para el desarrollo del pais. Este proyecto busca analizar los datos de construccion para identificar como se comportan el area construida y el precio, y cuales son los destinos con mayor actividad.
+
+## 2. Resultados
+
+### Medidas descriptivas
+
+```{r}
+summary(datos$AREATOTCO2)
+summary(datos$PRECIOVTAX_num)
+mean(datos$AREATOTCO2, na.rm = TRUE)
+median(datos$AREATOTCO2, na.rm = TRUE)
+mean(datos$PRECIOVTAX_num, na.rm = TRUE)
+median(datos$PRECIOVTAX_num, na.rm = TRUE)
+barplot(table(datos$DESTINO2), las = 2, main = "Construcciones por destino")
+boxplot(datos$AREATOTCO2[datos$AREATOTCO2 < 2000], main = "Boxplot del area")
+hist(datos$AREATOTCO2[datos$AREATOTCO2 < 2000], main = "Histograma del area", xlab = "Area total construida")
+top10 <- sort(table(datos$DESTINO2), decreasing = TRUE)[1:10]
+print(top10)
+barplot(top10, las = 2, main = "Top 10 destinos")
+``` 
+La mayoria de las construcciones son pequenas, con area menor a 250. El promedio es mayor que la mediana porque unos pocos datos muy grandes suben el promedio. El destino mas frecuente es el que aparece primero en el Top 10.
